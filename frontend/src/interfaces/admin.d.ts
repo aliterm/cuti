@@ -6,3 +6,7 @@ export interface Admin {
   birthDate: string
   gender: string
 }
+
+export interface AdminWithToken extends Admin {
+  token: string
+}

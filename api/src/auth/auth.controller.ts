@@ -36,7 +36,9 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() register: RegisterDto) {
-    return this.adminService.create(register);
+    const admin = await this.adminService.create(register);
+    const token = await this.authService.login(admin);
+    return { token: token.token, ...admin };
   }
 
   @UseGuards(AuthGuard('jwt'))

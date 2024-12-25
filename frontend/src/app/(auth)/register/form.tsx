@@ -14,6 +14,8 @@ import { toast, ToastContainer } from 'react-toastify'
 import { z } from 'zod'
 import fetcher from '@/helpers/fetcher'
 import { HiCalendar, HiUser } from 'react-icons/hi2'
+import { setCookie } from 'cookies-next'
+import { AdminWithToken } from '@/interfaces/admin'
 
 type Inputs = {
   firstName: string
@@ -55,13 +57,14 @@ export default function RegisterForm() {
     resolver: zodResolver(schema),
   })
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const res = await fetcher({
+    const res = await fetcher<AdminWithToken>({
       method: 'POST',
       endpoint: 'auth/register',
       body: JSON.stringify(data),
     })
-    if (res.statusCode === 200 && res.data) {
-      // await loginSession(res.data)
+    if (res.statusCode === 201 && res.data) {
+      // await loginSession(res.dat
+      setCookie('token', res.data.token, { path: '/' })
       router.push('/dashboard')
     } else {
       toast.error(res.message, { toastId: 'register-toast', theme: 'colored' })
@@ -98,7 +101,7 @@ export default function RegisterForm() {
 
           <div className="relative mb-3">
             <Input
-              {...register('birthDate')}
+              {...register('birthDate', { valueAsDate: true })}
               placeholder="Tanggal Lahir"
               floatingLabel={false}
               autoComplete="new-password"
