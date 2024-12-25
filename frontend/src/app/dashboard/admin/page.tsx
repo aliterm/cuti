@@ -20,7 +20,7 @@ export default async function AdminPage() {
     <>
       <h1 className="text-2xl font-bold mb-5">Daftar Administrator</h1>
       <AddAdmin token={token!} />
-      <ListAdmin admins={admins} />
+      <ListAdmin admins={admins} token={token!} />
     </>
   )
 }

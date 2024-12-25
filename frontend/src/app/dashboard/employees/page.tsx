@@ -20,7 +20,7 @@ export default async function EmployeesPage() {
     <>
       <h1 className="text-2xl font-bold mb-5">Daftar Pegawai</h1>
       <AddEmployee token={token!} />
-      <ListEmployees employees={employees} />
+      <ListEmployees employees={employees} token={token!} />
     </>
   )
 }

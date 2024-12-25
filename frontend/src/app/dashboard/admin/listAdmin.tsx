@@ -8,8 +8,9 @@ import { useRouter } from 'next/navigation'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
   admins: Admin[]
+  token?: string
 }
-export function ListAdmin({ admins }: ListAdminProps) {
+export function ListAdmin({ admins, token }: ListAdminProps) {
   const router = useRouter()
   return (
     <div className="overflow-x-auto">
@@ -41,14 +42,15 @@ export function ListAdmin({ admins }: ListAdminProps) {
                     size="xs"
                     color="failure"
                     onClick={async () => {
-                      const req = await fetcher({
+                      await fetcher({
                         endpoint: `admins/${admin.id}`,
                         method: 'DELETE',
+                        headers: {
+                          Authorization: `Bearer ${token!}`,
+                        },
                       })
 
-                      if (req.statusCode === 200) {
-                        router.refresh()
-                      }
+                      router.refresh()
                     }}
                   >
                     Delete

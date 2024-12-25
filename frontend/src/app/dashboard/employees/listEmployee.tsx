@@ -7,8 +7,9 @@ import { useRouter } from 'next/navigation'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
   employees: Employee[]
+  token?: string
 }
-export function ListEmployees({ employees }: ListAdminProps) {
+export function ListEmployees({ employees, token }: ListAdminProps) {
   const router = useRouter()
   return (
     <div className="overflow-x-auto">
@@ -40,11 +41,14 @@ export function ListEmployees({ employees }: ListAdminProps) {
                     size="xs"
                     color="failure"
                     onClick={async () => {
-                      const req = await fetcher({
+                      await fetcher({
                         endpoint: `employees/${employee.id}`,
                         method: 'DELETE',
+                        headers: {
+                          Authorization: `Bearer ${token!}`,
+                        },
                       })
-                      if (req.statusCode !== 200) return
+
                       router.refresh()
                     }}
                   >
