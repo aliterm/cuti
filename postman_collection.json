@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "5e49e449-7173-4084-8bb4-a5a0538bb0a6",
+		"name": "Aplikasi Simple Cuti",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12470162"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@admin.com\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\":\"Ali\",\n    \"lastName\": \"Halo\",\n    \"email\": \"ali@admim.com\",\n    \"password\": \"Password\",\n    \"birthDate\": \"1990-10-01\",\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTAxNDgzLCJleHAiOjE3MzUxMzAyODN9.Ap7J2OSGFCo1kjIrLMINh2XYdefk_9DE5fco9uroDZY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/auth/verify",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"verify"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Leaves",
+			"item": [
+				{
+					"name": "Apply Leave",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBhbGlhbGkrMS5jb20iLCJzdWIiOjUsImlhdCI6MTczNTA4OTg4NCwiZXhwIjoxNzM1MTE4Njg0fQ.BHC0s5DrZo0AyIM4lafNcHBuYLUWb5nGmc5UHn7fS6Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"employeeId\": 2,\n    \"startDate\": \"2024-12-26\",\n    \"endDate\": \"2024-12-26\",\n    \"reason\": \"Pulang Kampung\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/leaves",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"leaves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Leaves",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBhbGlhbGkrMS5jb20iLCJzdWIiOjUsImlhdCI6MTczNTA4OTg4NCwiZXhwIjoxNzM1MTE4Njg0fQ.BHC0s5DrZo0AyIM4lafNcHBuYLUWb5nGmc5UHn7fS6Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/leaves",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"leaves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Leave",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTE2MTU1LCJleHAiOjE3MzUxNDQ5NTV9.lXYYH0VWtPGp437C7Kn_uIF_Dnk8qyFO9JuBzA_wrrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"startDate\": \"2024-12-26\",\n    \"endDate\": \"2024-12-26\",\n    \"reason\": \"Pulang Aja\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/leaves/4",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"leaves",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admins",
+			"item": [
+				{
+					"name": "Get All Admins",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTE2MTU1LCJleHAiOjE3MzUxNDQ5NTV9.lXYYH0VWtPGp437C7Kn_uIF_Dnk8qyFO9JuBzA_wrrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admins",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ali\",\n    \"lastName\": \"Ali\",\n    \"email\": \"ali@aliali+1.com\",\n    \"password\": \"Kocak\",\n    \"birthDate\": \"1990-10-01\",\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admins",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Admin",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Admin\",\n    \"lastName\": \"Admin\",\n    \"email\": \"admin@admin.com\",\n    \"password\": \"Password\",\n    \"birthDate\": \"1990-10-01\",\n    \"gender\": \"male\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admins/5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admins",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTE2MTU1LCJleHAiOjE3MzUxNDQ5NTV9.lXYYH0VWtPGp437C7Kn_uIF_Dnk8qyFO9JuBzA_wrrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/admins/6",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admins",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "Create Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTA4NDIzLCJleHAiOjE3MzUxMzcyMjN9.DQ8VsReSdXLx1UT8H3ffExPThnZDwt3TGJ4LFx0RJ9g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ali\",\n    \"lastName\": \"Ali\",\n    \"email\": \"ali@ali2.com\",\n    \"phone\": \"0812839839834\",\n    \"address\": \"Jalan doang\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/employees",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Employees",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTE2MTU1LCJleHAiOjE3MzUxNDQ5NTV9.lXYYH0VWtPGp437C7Kn_uIF_Dnk8qyFO9JuBzA_wrrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/employees",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTE2MTU1LCJleHAiOjE3MzUxNDQ5NTV9.lXYYH0VWtPGp437C7Kn_uIF_Dnk8qyFO9JuBzA_wrrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Ali\",\n    \"lastName\": \"ali\",\n    \"email\": \"ali@ali+3.com\",\n    \"phone\": \"0812839839834\",\n    \"address\": \"Jalan doang\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/employees/2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Employee",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsInN1YiI6NiwiaWF0IjoxNzM1MTE2MTU1LCJleHAiOjE3MzUxNDQ5NTV9.lXYYH0VWtPGp437C7Kn_uIF_Dnk8qyFO9JuBzA_wrrQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/employees/6",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"employees",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

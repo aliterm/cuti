@@ -15,6 +15,7 @@ import { HiLockClosed, HiUser } from 'react-icons/hi'
 
 interface Props {
   token: string
+  id: number
 }
 
 type Inputs = {
@@ -47,7 +48,8 @@ const custom: CustomFlowbiteTheme = {
   },
 }
 
-export default function AddAdminForm({ token }: Props) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export default function EditAdminForm({ token, id }: Props) {
   const router = useRouter()
   const {
     register,
@@ -58,7 +60,7 @@ export default function AddAdminForm({ token }: Props) {
   })
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const res = await fetcher({
-      method: 'POST',
+      method: 'PATCH',
       endpoint: 'admins',
       body: JSON.stringify(data),
       headers: {
@@ -159,7 +161,7 @@ export default function AddAdminForm({ token }: Props) {
               </>
             ) : (
               <>
-                <span className="mr-1 align-middle">Tambah Admin</span>
+                <span className="mr-1 align-middle">Update Admin</span>
               </>
             )}
           </Button>
