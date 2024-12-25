@@ -16,8 +16,16 @@ export class AdminsService {
     return this.adminRepository.find();
   }
 
-  findOne(id: number): Promise<Admin> {
-    return this.adminRepository.findOneBy({ id });
+  async findOne(id: number): Promise<Admin> {
+    try {
+      const admin = await this.adminRepository.findOneBy({ id });
+      if (!admin) {
+        throw new BadRequestException('Admin tidak ditemukan');
+      }
+      return admin;
+    } catch {
+      throw new BadRequestException('Admin tidak ditemukan');
+    }
   }
 
   async create(admin: Partial<Admin>): Promise<Admin> {

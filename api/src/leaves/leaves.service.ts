@@ -123,7 +123,6 @@ export class LeavesService {
       throw new BadRequestException('Cuti tidak ditemukan');
     }
 
-    console.log(leave);
     return this.applyLeave(
       existingLeave.employee.id,
       new Date(leave.startDate),

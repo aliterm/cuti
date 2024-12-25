@@ -5,6 +5,7 @@ export interface Admin {
   email: string
   birthDate: string
   gender: string
+  password?: string
 }
 
 export interface AdminWithToken extends Admin {

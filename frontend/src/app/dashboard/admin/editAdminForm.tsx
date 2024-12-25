@@ -12,10 +12,12 @@ import { z } from 'zod'
 import fetcher from '@/helpers/fetcher'
 import { HiCalendar, HiEnvelope } from 'react-icons/hi2'
 import { HiLockClosed, HiUser } from 'react-icons/hi'
+import { Admin } from '@/interfaces/admin'
 
 interface Props {
   token: string
   id: number
+  admin: Admin
 }
 
 type Inputs = {
@@ -48,7 +50,7 @@ const custom: CustomFlowbiteTheme = {
   },
 }
 
-export default function EditAdminForm({ token, id }: Props) {
+export default function EditAdminForm({ token, id, admin }: Props) {
   const router = useRouter()
   const {
     register,
@@ -56,6 +58,14 @@ export default function EditAdminForm({ token, id }: Props) {
     formState: { isSubmitting, isDirty, isValid },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      firstName: admin.firstName,
+      lastName: admin.lastName,
+      email: admin.email,
+      password: admin.password,
+      birthDate: new Date(admin.birthDate),
+      gender: admin.gender,
+    },
   })
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const res = await fetcher({
