@@ -59,8 +59,10 @@ export default function LoginForm() {
       body: JSON.stringify(data),
     })
 
-    if (res.statusCode === 200 && res.data) {
+    console.log(res.data)
+    if (res.statusCode === 201 && res.data) {
       setCookie('token', res.data.token, { path: '/' })
+      console.log(res.data.token, 'TOKEN BOS')
       router.push('/dashboard')
     } else {
       toast.error(res.message, { toastId: 'login-toast', theme: 'colored' })

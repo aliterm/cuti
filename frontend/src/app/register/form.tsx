@@ -101,7 +101,7 @@ export default function RegisterForm() {
             />
           </div>
 
-          <Button color="warning" className="w-full" type="submit" disabled={!(isDirty && isValid) || isSubmitting}>
+          <Button color="blue" className="w-full" type="submit" disabled={!(isDirty && isValid) || isSubmitting}>
             {isSubmitting ? (
               <>
                 <Spinner color="purple" className="mr-2" size={'sm'} aria-label="Loading" /> Memuat ...
@@ -116,7 +116,7 @@ export default function RegisterForm() {
 
           <p className="mt-5 text-center text-sm">
             Sudah punya akun? Masuk{' '}
-            <Link className="text-blue-500 hover:text-blue-400 mb-5" href={'/login'}>
+            <Link className="text-blue-500 hover:text-blue-400 mb-5" href={'/'}>
               di sini
             </Link>
           </p>

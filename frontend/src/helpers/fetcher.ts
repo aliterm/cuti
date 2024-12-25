@@ -16,9 +16,9 @@ const fetcher = async <T = unknown>(params: FetcherParams): Promise<APIResponse<
     const json = await res.json()
 
     return {
-      statusCode: json?.status_code ?? 500,
-      message: json?.message ?? 'Something went wrong',
-      data: json?.data ?? undefined,
+      statusCode: json?.statusCode ?? res.status,
+      message: json?.message ?? res.statusText,
+      data: json,
       pagination: json?.pagination ?? undefined,
     }
   } catch (error: unknown) {

@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Catch, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Admin } from './admins.entity';
 import * as bcrypt from 'bcrypt';
+import e from 'express';
 
 @Injectable()
 export class AdminsService {
@@ -20,12 +21,18 @@ export class AdminsService {
   }
 
   async create(admin: Partial<Admin>): Promise<Admin> {
-    const hashedPassword = await bcrypt.hash(
-      admin.password,
-      bcrypt.genSaltSync(),
-    ); // Hash the password
-    admin.password = hashedPassword;
-    return this.adminRepository.save(admin);
+    try {
+      const hashedPassword = await bcrypt.hash(
+        admin.password,
+        bcrypt.genSaltSync(),
+      );
+      admin.password = hashedPassword;
+      const createdAdmin = await this.adminRepository.save(admin);
+
+      return createdAdmin;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   async remove(id: number): Promise<void> {
