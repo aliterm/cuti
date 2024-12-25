@@ -64,6 +64,8 @@ export default function AddLeaveForm({ employees, token }: LeaveFormProps) {
     })
     if (res.statusCode === 201 && res.data) {
       router.refresh()
+      const closeButton = document.querySelector('button[aria-label="Close"]') as HTMLButtonElement
+      closeButton.click()
     } else {
       toast.error(res.message, { toastId: 'register-toast', theme: 'colored' })
     }
