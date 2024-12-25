@@ -76,10 +76,8 @@ export default function EditAdminForm({ token, id, admin }: Props) {
         Authorization: `Bearer ${token}`,
       },
     })
-    if (res.statusCode === 201 && res.data) {
-      router.refresh()
-      const closeButton = document.querySelector('button[aria-label="Close"]') as HTMLButtonElement
-      closeButton.click()
+    if (res.statusCode === 200 && res.data) {
+      router.push('/dashboard/admin')
     } else {
       toast.error(res.message, { toastId: 'register-toast', theme: 'colored' })
     }
