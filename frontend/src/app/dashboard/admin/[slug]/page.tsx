@@ -7,7 +7,7 @@ export default async function EditAdmin({ params }: { params: { slug: string } }
   const token = (await cookies()).get('token')?.value
   return (
     <>
-      <h1 className="text-2xl font-bold mb-5">Daftar Administrator</h1>
+      <h1 className="text-2xl font-bold mb-5">Edit Administrator</h1>
       <EditAdminForm token={token!} id={Number(params.slug)} />
     </>
   )

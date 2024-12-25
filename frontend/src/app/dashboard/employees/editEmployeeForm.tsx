@@ -4,16 +4,16 @@ import Input from '@/components/input'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, CustomFlowbiteTheme, Flowbite, Label, Select, Spinner } from 'flowbite-react'
+import { Button, CustomFlowbiteTheme, Flowbite, Label, Select, Spinner, Textarea } from 'flowbite-react'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast, ToastContainer } from 'react-toastify'
 import { z } from 'zod'
 import fetcher from '@/helpers/fetcher'
-import { HiCalendar, HiEnvelope } from 'react-icons/hi2'
-import { HiLockClosed, HiUser } from 'react-icons/hi'
+import { HiEnvelope } from 'react-icons/hi2'
+import { HiUser } from 'react-icons/hi'
 
-interface Props {
+interface LeaveFormProps {
   token: string
   id: number
 }
@@ -22,8 +22,8 @@ type Inputs = {
   firstName: string
   lastName: string
   email: string
-  birthDate: Date
-  password: string
+  phone: string
+  address: string
   gender: string
 }
 
@@ -31,8 +31,8 @@ const schema = z.object({
   firstName: z.string().min(3),
   lastName: z.string().min(3),
   email: z.string().email(),
-  password: z.string().min(6),
-  birthDate: z.date(),
+  phone: z.string().min(3),
+  address: z.string().min(3),
   gender: z.enum(['male', 'female']),
 })
 
@@ -48,7 +48,7 @@ const custom: CustomFlowbiteTheme = {
   },
 }
 
-export default function EditAdminForm({ token, id }: Props) {
+export default function EditEmployeeForm({ token, id }: LeaveFormProps) {
   const router = useRouter()
   const {
     register,
@@ -60,7 +60,7 @@ export default function EditAdminForm({ token, id }: Props) {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const res = await fetcher({
       method: 'PATCH',
-      endpoint: 'admins' + `/${id}`,
+      endpoint: 'employees/' + id,
       body: JSON.stringify(data),
       headers: {
         Authorization: `Bearer ${token}`,
@@ -81,32 +81,6 @@ export default function EditAdminForm({ token, id }: Props) {
 
       <form className="mx-auto" onSubmit={handleSubmit(onSubmit)}>
         <Flowbite theme={{ theme: custom }}>
-          <div className="relative mb-3">
-            <Input
-              label="Email"
-              {...register('email')}
-              placeholder="Email"
-              floatingLabel={false}
-              autoComplete="new-password"
-              wrapperClass="mb-0"
-              icon={HiEnvelope}
-            />
-          </div>
-
-          <div className="relative mb-3">
-            <Input
-              label="Password"
-              {...register('password')}
-              placeholder="Nomor Telepon"
-              floatingLabel={false}
-              autoComplete="new-password"
-              wrapperClass="mb-0"
-              icon={HiLockClosed}
-              type="password"
-              showingPasword={true}
-            />
-          </div>
-
           <div className="relative mb-3">
             <Input
               label="Nama Depan"
@@ -132,25 +106,41 @@ export default function EditAdminForm({ token, id }: Props) {
           </div>
 
           <div className="relative mb-3">
-            <Input
-              label="Tanggal Lahir"
-              {...register('birthDate', {
-                valueAsDate: true,
-              })}
-              type="date"
-              floatingLabel={false}
-              autoComplete="new-password"
-              wrapperClass="mb-0"
-              icon={HiCalendar}
-            />
-          </div>
-
-          <div className="relative mb-3">
             <Label>Gender</Label>
             <Select {...register('gender')}>
               <option value="male">Laki-laki</option>
               <option value="female">Perempuan</option>
             </Select>
+          </div>
+
+          <div className="relative mb-3">
+            <Input
+              label="Email"
+              {...register('email')}
+              placeholder="Email"
+              floatingLabel={false}
+              autoComplete="new-password"
+              wrapperClass="mb-0"
+              icon={HiEnvelope}
+            />
+          </div>
+
+          <div className="relative mb-3">
+            <Input
+              label="Nomor Telepon"
+              {...register('phone')}
+              placeholder="Nomor Telepon"
+              floatingLabel={false}
+              autoComplete="new-password"
+              wrapperClass="mb-0"
+              icon={HiEnvelope}
+              type="tel"
+            />
+          </div>
+
+          <div className="relative mb-3">
+            <Label>Alamat</Label>
+            <Textarea {...register('address')} />
           </div>
 
           <Button color="blue" className="w-full" type="submit" disabled={(!isDirty && isValid) || isSubmitting}>
@@ -160,7 +150,7 @@ export default function EditAdminForm({ token, id }: Props) {
               </>
             ) : (
               <>
-                <span className="mr-1 align-middle">Update Admin</span>
+                <span className="mr-1 align-middle">Update Pegawai</span>
               </>
             )}
           </Button>

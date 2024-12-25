@@ -34,7 +34,7 @@ export function ListAdmin({ admins }: ListAdminProps) {
               <Table.Cell>{admin.gender}</Table.Cell>
               <Table.Cell>
                 <ButtonGroup>
-                  <Button size="xs" color="warning">
+                  <Button size="xs" color="warning" onClick={() => router.push(`/dashboard/admin/${admin.id}`)}>
                     Edit
                   </Button>
                   <Button

@@ -33,7 +33,7 @@ export function ListEmployees({ employees }: ListAdminProps) {
               <Table.Cell>{employee.gender}</Table.Cell>
               <Table.Cell>
                 <ButtonGroup>
-                  <Button size="xs" color="warning">
+                  <Button size="xs" color="warning" onClick={() => router.push(`/dashboard/employees/${employee.id}`)}>
                     Edit
                   </Button>
                   <Button
