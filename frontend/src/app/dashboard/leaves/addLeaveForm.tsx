@@ -11,6 +11,11 @@ import { toast, ToastContainer } from 'react-toastify'
 import { z } from 'zod'
 import fetcher from '@/helpers/fetcher'
 import { HiCalendar } from 'react-icons/hi2'
+import { Employee } from '@/interfaces/employee'
+
+interface LeaveFormProps {
+  employees: Employee[]
+}
 
 type Inputs = {
   employeeId: number
@@ -38,7 +43,7 @@ const custom: CustomFlowbiteTheme = {
   },
 }
 
-export default function AddLeaveForm() {
+export default function AddLeaveForm({ employees }: LeaveFormProps) {
   const router = useRouter()
   const {
     register,
@@ -96,10 +101,11 @@ export default function AddLeaveForm() {
           <div className="relative mb-3">
             <Label>Employee</Label>
             <Select {...register('employeeId')}>
-              <option value={'1'} defaultChecked>
-                Ali
-              </option>
-              <option value={'2'}>Nabil</option>
+              {employees.map((employee) => (
+                <option key={employee.id} value={employee.id}>
+                  {employee.firstName + ' ' + employee.lastName + ' <' + employee.email + '>'}
+                </option>
+              ))}
             </Select>
           </div>
 

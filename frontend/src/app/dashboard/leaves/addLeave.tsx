@@ -3,8 +3,13 @@
 import { Button, Modal } from 'flowbite-react'
 import { useState } from 'react'
 import AddLeaveForm from './addLeaveForm'
+import { Employee } from '@/interfaces/employee'
 
-export default function AddLeave() {
+interface AddLeaveProps {
+  employees: Employee[]
+}
+
+export default function AddLeave({ employees }: AddLeaveProps) {
   const [openModal, setOpenModal] = useState(true)
 
   return (
@@ -13,7 +18,7 @@ export default function AddLeave() {
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Tambah Cuti</Modal.Header>
         <Modal.Body>
-          <AddLeaveForm />
+          <AddLeaveForm employees={employees} />
         </Modal.Body>
       </Modal>
     </>
