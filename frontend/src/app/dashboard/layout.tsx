@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { DashboardSiderbar } from './siderbar'
 
 export const metadata: Metadata = {
   title: 'Dashboard - Simple Aplikasi Cuti',
@@ -9,5 +10,14 @@ export default function DashboardLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return <div className="min-h-screen bg-slate-50">{children}</div>
+  return (
+    <div className="min-h-screen flex gap-x-2 bg-slate-300">
+      <div>
+        <DashboardSiderbar />
+      </div>
+      <div className="m-2 rounded w-screen bg-white">
+        <div className="container mx-auto p-6">{children}</div>
+      </div>
+    </div>
+  )
 }
