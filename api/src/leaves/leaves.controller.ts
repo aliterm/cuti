@@ -1,6 +1,15 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { LeavesService } from './leaves.service';
+import { Leave } from './leaves.entity';
 
 @Controller('leaves')
 @UseGuards(AuthGuard('jwt'))
@@ -25,5 +34,10 @@ export class LeavesController {
       new Date(endDate),
       reason,
     );
+  }
+
+  @Patch(':id')
+  async editLeave(@Param('id') id: number, @Body() leave: Partial<Leave>) {
+    return this.leaveService.editLeave(id, leave);
   }
 }

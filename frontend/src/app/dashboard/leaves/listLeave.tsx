@@ -1,13 +1,16 @@
 'use client'
 
+import fetcher from '@/helpers/fetcher'
 import { Leave } from '@/interfaces/leave'
 import dayjs from 'dayjs'
 import { Button, ButtonGroup, Table } from 'flowbite-react'
+import { useRouter } from 'next/navigation'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
   leaves: Leave[]
 }
 export function ListLeaves({ leaves }: ListAdminProps) {
+  const router = useRouter()
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -34,7 +37,20 @@ export function ListLeaves({ leaves }: ListAdminProps) {
                   <Button size="xs" color="warning">
                     Edit
                   </Button>
-                  <Button size="xs" color="failure">
+                  <Button
+                    size="xs"
+                    color="failure"
+                    onClick={async () => {
+                      const req = await fetcher({
+                        method: 'DELETE',
+                        endpoint: `leaves/${leave.id}`,
+                      })
+
+                      if (req.statusCode === 200) {
+                        router.refresh()
+                      }
+                    }}
+                  >
                     Delete
                   </Button>
                 </ButtonGroup>

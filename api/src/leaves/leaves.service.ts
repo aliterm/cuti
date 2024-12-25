@@ -36,6 +36,7 @@ export class LeavesService {
     startDate: Date,
     endDate: Date,
     reason: string,
+    isEdit: boolean = false,
   ): Promise<Leave> {
     const employee = await this.employeeRepository.findOne({
       where: { id: employeeId },
@@ -92,10 +93,13 @@ export class LeavesService {
     const monthlyLeaves = yearlyLeaves.filter(
       (leave) => leave.startDate.getMonth() === startMonth,
     );
-    if (monthlyLeaves.length >= 1) {
-      throw new BadRequestException(
-        'Cuti hanya diperbolehkan satu kali dalam satu bulan.',
-      );
+
+    if (!isEdit) {
+      if (monthlyLeaves.length >= 1) {
+        throw new BadRequestException(
+          'Cuti hanya diperbolehkan satu kali dalam satu bulan.',
+        );
+      }
     }
 
     const newLeave = this.leaveRepository.create({
@@ -106,5 +110,26 @@ export class LeavesService {
     });
 
     return this.leaveRepository.save(newLeave);
+  }
+
+  async editLeave(id: number, leave: Partial<Leave>): Promise<Leave> {
+    const existingLeave = await this.leaveRepository.findOne({
+      where: { id },
+      relations: {
+        employee: true,
+      },
+    });
+    if (!existingLeave) {
+      throw new BadRequestException('Cuti tidak ditemukan');
+    }
+
+    console.log(leave);
+    return this.applyLeave(
+      existingLeave.employee.id,
+      new Date(leave.startDate),
+      new Date(leave.endDate),
+      leave.reason,
+      true,
+    );
   }
 }

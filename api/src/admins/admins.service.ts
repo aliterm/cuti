@@ -38,4 +38,16 @@ export class AdminsService {
   async remove(id: number): Promise<void> {
     await this.adminRepository.delete(id);
   }
+
+  async update(id: number, user: Partial<Admin>): Promise<Admin> {
+    if (user.password) {
+      const hashedPassword = await bcrypt.hash(
+        user.password,
+        bcrypt.genSaltSync(),
+      );
+      user.password = hashedPassword;
+    }
+    await this.adminRepository.update(id, user);
+    return this.adminRepository.findOneBy({ id });
+  }
 }

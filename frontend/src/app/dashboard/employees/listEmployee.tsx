@@ -1,12 +1,15 @@
 'use client'
 
+import fetcher from '@/helpers/fetcher'
 import { Employee } from '@/interfaces/employee'
 import { Button, ButtonGroup, Table } from 'flowbite-react'
+import { useRouter } from 'next/navigation'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
   employees: Employee[]
 }
 export function ListEmployees({ employees }: ListAdminProps) {
+  const router = useRouter()
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -33,7 +36,18 @@ export function ListEmployees({ employees }: ListAdminProps) {
                   <Button size="xs" color="warning">
                     Edit
                   </Button>
-                  <Button size="xs" color="failure">
+                  <Button
+                    size="xs"
+                    color="failure"
+                    onClick={async () => {
+                      const req = await fetcher({
+                        endpoint: `employees/${employee.id}`,
+                        method: 'DELETE',
+                      })
+                      if (req.statusCode !== 200) return
+                      router.refresh()
+                    }}
+                  >
                     Delete
                   </Button>
                 </ButtonGroup>

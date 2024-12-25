@@ -1,13 +1,16 @@
 'use client'
 
+import fetcher from '@/helpers/fetcher'
 import { Admin } from '@/interfaces/admin'
 import dayjs from 'dayjs'
 import { Button, ButtonGroup, Table } from 'flowbite-react'
+import { useRouter } from 'next/navigation'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
   admins: Admin[]
 }
 export function ListAdmin({ admins }: ListAdminProps) {
+  const router = useRouter()
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -34,7 +37,20 @@ export function ListAdmin({ admins }: ListAdminProps) {
                   <Button size="xs" color="warning">
                     Edit
                   </Button>
-                  <Button size="xs" color="failure">
+                  <Button
+                    size="xs"
+                    color="failure"
+                    onClick={async () => {
+                      const req = await fetcher({
+                        endpoint: `admins/${admin.id}`,
+                        method: 'DELETE',
+                      })
+
+                      if (req.statusCode === 200) {
+                        router.refresh()
+                      }
+                    }}
+                  >
                     Delete
                   </Button>
                 </ButtonGroup>

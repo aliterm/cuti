@@ -28,4 +28,13 @@ export class EmployeesService {
   create(employee: Partial<Employee>): Promise<Employee> {
     return this.employeeRepository.save(employee);
   }
+
+  async remove(id: number): Promise<void> {
+    await this.employeeRepository.delete(id);
+  }
+
+  async update(id: number, employee: Partial<Employee>): Promise<Employee> {
+    await this.employeeRepository.update(id, employee);
+    return this.findOne(id);
+  }
 }
