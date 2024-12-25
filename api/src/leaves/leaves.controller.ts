@@ -12,9 +12,9 @@ export class LeavesController {
     return this.leaveService.findAll();
   }
 
-  @Post(':employeeId')
+  @Post()
   async applyLeave(
-    @Param('employeeId') employeeId: number,
+    @Body('employeeId') employeeId: number,
     @Body('startDate') startDate: string,
     @Body('endDate') endDate: string,
     @Body('reason') reason: string,
