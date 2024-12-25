@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -39,5 +40,10 @@ export class LeavesController {
   @Patch(':id')
   async editLeave(@Param('id') id: number, @Body() leave: Partial<Leave>) {
     return this.leaveService.editLeave(id, leave);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: number): Promise<void> {
+    return this.leaveService.remove(id);
   }
 }

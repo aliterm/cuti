@@ -132,4 +132,8 @@ export class LeavesService {
       true,
     );
   }
+
+  async remove(id: number): Promise<void> {
+    await this.leaveRepository.delete(id);
+  }
 }
