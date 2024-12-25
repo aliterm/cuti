@@ -30,7 +30,7 @@ export default async function LeavesPage() {
   return (
     <>
       <h1 className="text-2xl font-bold mb-5">Daftar Cuti Pegawai</h1>
-      <AddLeave employees={employees} />
+      <AddLeave token={token!} employees={employees} />
       <ListLeaves leaves={leaves} />
     </>
   )

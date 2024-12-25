@@ -15,6 +15,7 @@ import { Employee } from '@/interfaces/employee'
 
 interface LeaveFormProps {
   employees: Employee[]
+  token: string
 }
 
 type Inputs = {
@@ -25,7 +26,7 @@ type Inputs = {
 }
 
 const schema = z.object({
-  employeeId: z.number(),
+  employeeId: z.string(),
   startDate: z.date(),
   endDate: z.date(),
   reason: z.string().min(3),
@@ -43,12 +44,12 @@ const custom: CustomFlowbiteTheme = {
   },
 }
 
-export default function AddLeaveForm({ employees }: LeaveFormProps) {
+export default function AddLeaveForm({ employees, token }: LeaveFormProps) {
   const router = useRouter()
   const {
     register,
     handleSubmit,
-    formState: { isDirty, isSubmitting, isValid },
+    formState: { isSubmitting, isDirty, isValid },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
@@ -57,10 +58,12 @@ export default function AddLeaveForm({ employees }: LeaveFormProps) {
       method: 'POST',
       endpoint: 'leaves',
       body: JSON.stringify(data),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-    if (res.statusCode === 200 && res.data) {
-      // await loginSession(res.data)
-      router.push('/dashboard')
+    if (res.statusCode === 201 && res.data) {
+      router.refresh()
     } else {
       toast.error(res.message, { toastId: 'register-toast', theme: 'colored' })
     }
@@ -75,7 +78,7 @@ export default function AddLeaveForm({ employees }: LeaveFormProps) {
           <div className="relative mb-3">
             <Input
               label="Tanggal Mulai"
-              {...register('startDate')}
+              {...register('startDate', { valueAsDate: true })}
               placeholder="Tanggal Mulai"
               floatingLabel={false}
               autoComplete="new-password"
@@ -87,7 +90,7 @@ export default function AddLeaveForm({ employees }: LeaveFormProps) {
 
           <div className="relative mb-3">
             <Input
-              {...register('endDate')}
+              {...register('endDate', { valueAsDate: true })}
               label="Tanggal Selesai"
               placeholder="Tanggal Selesai"
               floatingLabel={false}
@@ -114,7 +117,7 @@ export default function AddLeaveForm({ employees }: LeaveFormProps) {
             <Textarea {...register('reason')} />
           </div>
 
-          <Button color="blue" className="w-full" type="submit" disabled={!(isDirty && isValid) || isSubmitting}>
+          <Button color="blue" className="w-full" type="submit" disabled={(!isDirty && isValid) || isSubmitting}>
             {isSubmitting ? (
               <>
                 <Spinner color="purple" className="mr-2" size={'sm'} aria-label="Loading" /> Memuat ...

@@ -7,18 +7,21 @@ import { Employee } from '@/interfaces/employee'
 
 interface AddLeaveProps {
   employees: Employee[]
+  token: string
 }
 
-export default function AddLeave({ employees }: AddLeaveProps) {
-  const [openModal, setOpenModal] = useState(true)
+export default function AddLeave({ employees, token }: AddLeaveProps) {
+  const [openModal, setOpenModal] = useState(false)
 
   return (
     <>
-      <Button onClick={() => setOpenModal(true)}>Tambah Cuti</Button>
+      <Button onClick={() => setOpenModal(true)} className="mb-5">
+        Tambah Cuti
+      </Button>
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         <Modal.Header>Tambah Cuti</Modal.Header>
         <Modal.Body>
-          <AddLeaveForm employees={employees} />
+          <AddLeaveForm token={token} employees={employees} />
         </Modal.Body>
       </Modal>
     </>
