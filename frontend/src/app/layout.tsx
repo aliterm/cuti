@@ -18,7 +18,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${nunito.className} antialiased`}>{children}</body>
+      <body
+        className={`${nunito.className} antialiased min-h-screen flex flex-col bg-gradient-to-t from-blue-400 to-blue-300 md:justify-center items-center`}
+      >
+        {children}
+      </body>
     </html>
   )
 }

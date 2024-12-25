@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "cookies-next": "^5.0.2",
     "flowbite-react": "^0.10.2",
     "next": "15.1.2",
     "react": "^19.0.0",

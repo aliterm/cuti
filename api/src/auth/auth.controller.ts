@@ -25,7 +25,7 @@ export class AuthController {
       body.password,
     );
     if (!admin) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Email atau password salah');
     }
     return this.authService.login(admin);
   }
