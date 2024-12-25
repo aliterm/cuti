@@ -6,6 +6,7 @@ import {
   Request,
   UnauthorizedException,
   Get,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -39,8 +40,9 @@ export class AuthController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('profile')
-  async getProfile(@Request() req) {
+  @Get('verify')
+  @HttpCode(200)
+  async verifyAdmin(@Request() req) {
     const adminId = req.user.id;
     const admin = await this.adminService.findOne(adminId);
     return admin;

@@ -4,7 +4,7 @@ import Input from '@/components/input'
 
 import 'react-toastify/dist/ReactToastify.css'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, CustomFlowbiteTheme, Flowbite, Spinner } from 'flowbite-react'
+import { Button, CustomFlowbiteTheme, Flowbite, Select, Spinner } from 'flowbite-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -13,17 +13,24 @@ import { HiLockClosed, HiMail } from 'react-icons/hi'
 import { toast, ToastContainer } from 'react-toastify'
 import { z } from 'zod'
 import fetcher from '@/helpers/fetcher'
+import { HiCalendar, HiUser } from 'react-icons/hi2'
 
 type Inputs = {
-  name: string
+  firstName: string
+  lastName: string
+  birthDate: Date
+  gender: string
   email: string
   password: string
 }
 
 const schema = z.object({
-  name: z.string().min(3),
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
   email: z.string().email(),
   password: z.string().min(6),
+  birthDate: z.date(),
+  gender: z.enum(['male', 'female']),
 })
 
 const custom: CustomFlowbiteTheme = {
@@ -69,19 +76,51 @@ export default function RegisterForm() {
         <Flowbite theme={{ theme: custom }}>
           <div className="relative mb-3">
             <Input
-              {...register('name')}
-              placeholder="Nama lengkap"
+              {...register('firstName')}
+              placeholder="Nama Depan"
               floatingLabel={false}
               autoComplete="new-password"
               wrapperClass="mb-0"
-              icon={HiMail}
+              icon={HiUser}
             />
           </div>
 
           <div className="relative mb-3">
             <Input
+              {...register('lastName')}
+              placeholder="Nama Belakang"
+              floatingLabel={false}
+              autoComplete="new-password"
+              wrapperClass="mb-0"
+              icon={HiUser}
+            />
+          </div>
+
+          <div className="relative mb-3">
+            <Input
+              {...register('birthDate')}
+              placeholder="Tanggal Lahir"
+              floatingLabel={false}
+              autoComplete="new-password"
+              wrapperClass="mb-0"
+              icon={HiCalendar}
+              type="date"
+            />
+          </div>
+
+          <div className="relative mb-3">
+            <Select {...register('gender')}>
+              <option value={'male'} defaultChecked>
+                Laki-Laki
+              </option>
+              <option value={'female'}>Perempuan</option>
+            </Select>
+          </div>
+
+          <div className="relative mb-3">
+            <Input
               {...register('email')}
-              placeholder="Surel"
+              placeholder="Email"
               floatingLabel={false}
               autoComplete="new-password"
               wrapperClass="mb-0"
@@ -95,7 +134,7 @@ export default function RegisterForm() {
               type="password"
               floatingLabel={false}
               icon={HiLockClosed}
-              placeholder="Kata sandi"
+              placeholder="Password"
               showingPasword={true}
               autoComplete="new-password"
             />
