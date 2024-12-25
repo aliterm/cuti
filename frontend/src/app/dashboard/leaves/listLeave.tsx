@@ -35,7 +35,7 @@ export function ListLeaves({ leaves, token }: ListAdminProps) {
               <Table.Cell>{dayjs(leave.endDate).format('DD-MM-YYYY')}</Table.Cell>
               <Table.Cell>
                 <ButtonGroup>
-                  <Button size="xs" color="warning">
+                  <Button size="xs" color="warning" onClick={() => router.push(`/dashboard/leaves/${leave.id}`)}>
                     Edit
                   </Button>
                   <Button

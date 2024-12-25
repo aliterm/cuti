@@ -46,4 +46,9 @@ export class LeavesController {
   remove(@Param('id') id: number): Promise<void> {
     return this.leaveService.remove(id);
   }
+
+  @Get(':id')
+  findOne(@Param('id') id: number): Promise<Leave> {
+    return this.leaveService.findOne(id);
+  }
 }

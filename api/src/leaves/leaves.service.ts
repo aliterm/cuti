@@ -135,4 +135,19 @@ export class LeavesService {
   async remove(id: number): Promise<void> {
     await this.leaveRepository.delete(id);
   }
+
+  async findOne(id: number): Promise<Leave> {
+    const leave = await this.leaveRepository.findOne({
+      where: { id },
+      relations: {
+        employee: true,
+      },
+    });
+
+    if (!leave) {
+      throw new BadRequestException('Cuti tidak ditemukan');
+    }
+
+    return leave;
+  }
 }
