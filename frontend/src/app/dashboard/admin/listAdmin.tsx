@@ -1,6 +1,7 @@
 'use client'
 
 import { Admin } from '@/interfaces/admin'
+import dayjs from 'dayjs'
 import { Button, ButtonGroup, Table } from 'flowbite-react'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -26,7 +27,7 @@ export function ListAdmin({ admins }: ListAdminProps) {
               <Table.Cell>{admin.firstName}</Table.Cell>
               <Table.Cell>{admin.lastName}</Table.Cell>
               <Table.Cell>{admin.email}</Table.Cell>
-              <Table.Cell>{admin.birthDate}</Table.Cell>
+              <Table.Cell>{dayjs(admin.birthDate).format('DD-MM-YYYY')}</Table.Cell>
               <Table.Cell>{admin.gender}</Table.Cell>
               <Table.Cell>
                 <ButtonGroup>

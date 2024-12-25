@@ -1,6 +1,7 @@
 'use client'
 
 import { Leave } from '@/interfaces/leave'
+import dayjs from 'dayjs'
 import { Button, ButtonGroup, Table } from 'flowbite-react'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -26,8 +27,8 @@ export function ListLeaves({ leaves }: ListAdminProps) {
               <Table.Cell>{leave.employee.firstName + ' ' + leave.employee.lastName}</Table.Cell>
               <Table.Cell>{leave.employee.email}</Table.Cell>
               <Table.Cell>{leave.reason}</Table.Cell>
-              <Table.Cell>{leave.startDate}</Table.Cell>
-              <Table.Cell>{leave.endDate}</Table.Cell>
+              <Table.Cell>{dayjs(leave.startDate).format('DD-MM-YYYY')}</Table.Cell>
+              <Table.Cell>{dayjs(leave.endDate).format('DD-MM-YYYY')}</Table.Cell>
               <Table.Cell>
                 <ButtonGroup>
                   <Button size="xs" color="warning">
