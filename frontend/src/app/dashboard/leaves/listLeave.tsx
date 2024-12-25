@@ -1,33 +1,33 @@
 'use client'
 
-import { Employee } from '@/interfaces/employee'
+import { Leave } from '@/interfaces/leave'
 import { Button, ButtonGroup, Table } from 'flowbite-react'
 
 interface ListAdminProps extends React.HTMLAttributes<HTMLDivElement> {
-  employees: Employee[]
+  leaves: Leave[]
 }
-export function ListEmployees({ employees }: ListAdminProps) {
+export function ListLeaves({ leaves }: ListAdminProps) {
   return (
     <div className="overflow-x-auto">
       <Table>
         <Table.Head>
           <Table.HeadCell>ID</Table.HeadCell>
-          <Table.HeadCell>Nama Depan</Table.HeadCell>
-          <Table.HeadCell>Nama Belakang</Table.HeadCell>
+          <Table.HeadCell>Nama Pegawai</Table.HeadCell>
           <Table.HeadCell>Email</Table.HeadCell>
-          <Table.HeadCell>No Telepon</Table.HeadCell>
-          <Table.HeadCell>Gender</Table.HeadCell>
+          <Table.HeadCell>Alasan Cuti</Table.HeadCell>
+          <Table.HeadCell>Tanggal Mulai</Table.HeadCell>
+          <Table.HeadCell>Tanggal Selesai</Table.HeadCell>
           <Table.HeadCell>Action</Table.HeadCell>
         </Table.Head>
         <Table.Body className="divide-y">
-          {employees.map((employee) => (
-            <Table.Row key={employee.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <Table.Cell>{employee.id}</Table.Cell>
-              <Table.Cell>{employee.firstName}</Table.Cell>
-              <Table.Cell>{employee.lastName}</Table.Cell>
-              <Table.Cell>{employee.email}</Table.Cell>
-              <Table.Cell>{employee.phone}</Table.Cell>
-              <Table.Cell>{employee.gender}</Table.Cell>
+          {leaves.map((leave) => (
+            <Table.Row key={leave.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
+              <Table.Cell>{leave.id}</Table.Cell>
+              <Table.Cell>{leave.employee.firstName + ' ' + leave.employee.lastName}</Table.Cell>
+              <Table.Cell>{leave.employee.email}</Table.Cell>
+              <Table.Cell>{leave.reason}</Table.Cell>
+              <Table.Cell>{leave.startDate}</Table.Cell>
+              <Table.Cell>{leave.endDate}</Table.Cell>
               <Table.Cell>
                 <ButtonGroup>
                   <Button size="xs" color="warning">
