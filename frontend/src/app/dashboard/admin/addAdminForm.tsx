@@ -96,7 +96,7 @@ export default function AddAdminForm({ token }: Props) {
             <Input
               label="Password"
               {...register('password')}
-              placeholder="Nomor Telepon"
+              placeholder="Password"
               floatingLabel={false}
               autoComplete="new-password"
               wrapperClass="mb-0"

@@ -12,10 +12,12 @@ import { z } from 'zod'
 import fetcher from '@/helpers/fetcher'
 import { HiEnvelope } from 'react-icons/hi2'
 import { HiUser } from 'react-icons/hi'
+import { Employee } from '@/interfaces/employee'
 
 interface LeaveFormProps {
   token: string
   id: number
+  employee: Employee
 }
 
 type Inputs = {
@@ -48,7 +50,7 @@ const custom: CustomFlowbiteTheme = {
   },
 }
 
-export default function EditEmployeeForm({ token, id }: LeaveFormProps) {
+export default function EditEmployeeForm({ token, id, employee }: LeaveFormProps) {
   const router = useRouter()
   const {
     register,
@@ -56,6 +58,14 @@ export default function EditEmployeeForm({ token, id }: LeaveFormProps) {
     formState: { isSubmitting, isDirty, isValid },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      phone: employee.phone,
+      address: employee.address,
+      gender: employee.gender,
+    },
   })
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const res = await fetcher({
@@ -66,10 +76,8 @@ export default function EditEmployeeForm({ token, id }: LeaveFormProps) {
         Authorization: `Bearer ${token}`,
       },
     })
-    if (res.statusCode === 201 && res.data) {
-      router.refresh()
-      const closeButton = document.querySelector('button[aria-label="Close"]') as HTMLButtonElement
-      closeButton.click()
+    if (res.statusCode === 200 && res.data) {
+      router.push('/dashboard/employees')
     } else {
       toast.error(res.message, { toastId: 'register-toast', theme: 'colored' })
     }

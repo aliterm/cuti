@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Employee } from './employees.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -18,11 +18,17 @@ export class EmployeesService {
     });
   }
 
-  findOne(id: number): Promise<Employee> {
-    return this.employeeRepository.findOne({
+  async findOne(id: number): Promise<Employee> {
+    const employee = await this.employeeRepository.findOne({
       where: { id },
       relations: { leaves: true },
     });
+
+    if (!employee) {
+      throw new BadRequestException('Employee not found');
+    }
+
+    return employee;
   }
 
   create(employee: Partial<Employee>): Promise<Employee> {

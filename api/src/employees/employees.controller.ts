@@ -39,4 +39,9 @@ export class EmployeesController {
   ): Promise<Employee> {
     return this.employeeService.update(id, employee);
   }
+
+  @Get(':id')
+  findOne(@Param('id') id: number): Promise<Employee> {
+    return this.employeeService.findOne(id);
+  }
 }
